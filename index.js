@@ -4,7 +4,8 @@ let twData = getBDProv();
 //carga json 
 async function getBDProv() {
     try {
-      const response = await  fetch("tweeteros.json")
+      const response = await  fetch("tw2.json")
+      //const response = await  fetch("tweeteros.json")
 //      const response = await  fetch("dummy.json")
          .then(response => response.json())
          //.then(json =>  console.log(json) );;
