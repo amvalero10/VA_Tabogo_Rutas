@@ -4,7 +4,8 @@ let twData = getBDProv();
 //carga json 
 async function getBDProv() {
     try {
-      const response = await  fetch("dummy.json")
+      const response = await  fetch("tweeteros.json")
+//      const response = await  fetch("dummy.json")
          .then(response => response.json())
          //.then(json =>  console.log(json) );;
       //console.log(response.data[0]);
@@ -57,11 +58,19 @@ require([
     //////////////////////////
     // routeLayer de cada id
     //////////////////////////
-    const routeLayer = new GraphicsLayer({title: "Tweetero B",});
-    const routeLayer2 = new GraphicsLayer({title: "Tweetero A",});
+    const routeLayer  = new GraphicsLayer({title: "E",});
+    const routeLayer2 = new GraphicsLayer({title: "D",});
+    const routeLayer3 = new GraphicsLayer({title: "C",});
+    const routeLayer4 = new GraphicsLayer({title: "B",});
+    const routeLayer5 = new GraphicsLayer({title: "A",});
 
-    routeLayer.effect = "bloom(0.2, 0.2px, 0.2)";
-    routeLayer2.effect = "bloom(0.2, 0.2px, 0.2)";
+
+    routeLayer.effect  = "bloom(0.3, 0.2px, 0.2)";
+    routeLayer2.effect = "bloom(0.3, 0.2px, 0.2)";
+    routeLayer3.effect = "bloom(0.3, 0.2px, 0.2)";
+    routeLayer4.effect = "bloom(0.3, 0.2px, 0.2)";
+    routeLayer5.effect = "bloom(0.3, 0.2px, 0.2)";
+
 
     //Apagar las capas en la lista del layerList
     //routeLayer.visible = false;
@@ -83,6 +92,36 @@ require([
       });
 
       const routeParams2 = new RouteParameters({
+        // An authorization string used to access the routing service
+        apiKey: pk,
+        stops: new FeatureSet(),
+        outSpatialReference: {
+          // autocasts as new SpatialReference()
+          wkid: 3857
+        }
+      });
+
+      const routeParams3 = new RouteParameters({
+        // An authorization string used to access the routing service
+        apiKey: pk,
+        stops: new FeatureSet(),
+        outSpatialReference: {
+          // autocasts as new SpatialReference()
+          wkid: 3857
+        }
+      });
+
+      const routeParams4 = new RouteParameters({
+        // An authorization string used to access the routing service
+        apiKey: pk,
+        stops: new FeatureSet(),
+        outSpatialReference: {
+          // autocasts as new SpatialReference()
+          wkid: 3857
+        }
+      });
+
+      const routeParams5 = new RouteParameters({
         // An authorization string used to access the routing service
         apiKey: pk,
         stops: new FeatureSet(),
@@ -131,7 +170,56 @@ require([
         // }
       };
 
+      const stopSymbol3 = {
+        type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+        // style: "point",
+        // color: "#0ff",
+        size: 10,
+        color: "#F59C34",
+        symbol: {
+          type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+          size: 15,
+        }
+        // outline: {
+        //   // autocasts as new SimpleLineSymbol()
+        //   width: 2
+        // }
+      };
 
+      const stopSymbol4 = {
+        type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+        // style: "point",
+        // color: "#0ff",
+        size: 10,
+        color: "#00F406",
+        symbol: {
+          type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+          size: 15,
+        }
+        // outline: {
+        //   // autocasts as new SimpleLineSymbol()
+        //   width: 2
+        // }
+      };
+
+      const stopSymbol5 = {
+        type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+        // style: "point",
+        // color: "#0ff",
+        size: 10,
+        color: "#F5F200",
+        symbol: {
+          type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+          size: 15,
+        }
+        // outline: {
+        //   // autocasts as new SimpleLineSymbol()
+        //   width: 2
+        // }
+      };
+
+
+      
     //////////////////////////
     // routeSymbol de cada id
     //////////////////////////
@@ -144,13 +232,37 @@ require([
         width: 3
       };
 
-          // Define the symbology used to display the route
+    // Define the symbology used to display the route
     const routeSymbol2 = {
         type: "simple-line", // autocasts as SimpleLineSymbol()
         //color: [0, 0, 255, 0.5],
         color: "#0ff",
         width: 3
       };
+
+      // Define the symbology used to display the route
+    const routeSymbol3 = {
+      type: "simple-line", // autocasts as SimpleLineSymbol()
+      //color: [0, 0, 255, 0.5],
+      color: "#F59C34",
+      width: 3
+    };
+
+    // Define the symbology used to display the route
+    const routeSymbol4 = {
+      type: "simple-line", // autocasts as SimpleLineSymbol()
+      //color: [0, 0, 255, 0.5],
+      color: "#00F406",
+      width: 3
+    };
+
+      // Define the symbology used to display the route
+    const routeSymbol5 = {
+      type: "simple-line", // autocasts as SimpleLineSymbol()
+      //color: [0, 0, 255, 0.5],
+      color: "#F5F200",
+      width: 3
+    };
 
 
 
@@ -168,7 +280,7 @@ require([
            id: "4f2e99ba65e34bb8af49733d9778fb8e"
           }
         },
-        layers: [routeLayer,routeLayer2] // Add the route layer to the map
+        layers: [routeLayer,routeLayer2,routeLayer3,routeLayer4,routeLayer5] // Add the route layer to the map
       });
       
 
@@ -204,6 +316,7 @@ require([
     const sliderValue = document.getElementById("sliderValue");
     const playButton = document.getElementById("playButton");
     const titleDiv = document.getElementById("titleDiv");
+    const refreshButton = document.getElementById("refreshButton")
     let animation = null;
 
 
@@ -218,6 +331,9 @@ require([
         rangeLabels: true
       }
     });
+
+    // desabilita la interaccion con el slider 
+    slider.disabled = true
 
 
 // * etiquetas en la barra del slider
@@ -266,6 +382,17 @@ slider.tickConfigs = [{
           startAnimation();
         }
       });
+
+
+
+// metodo para refresar la pagina y reiniciar el slider
+      refreshButton.addEventListener("click", () => {
+        window.location.reload(false)
+      })
+
+
+
+
 
 
 
@@ -331,6 +458,21 @@ slider.tickConfigs = [{
               routeResult.symbol = routeSymbol2;
               routeLayer2.add(routeResult);
               break
+            case 3:
+              //   console.log("entro a 3 en showrute")
+                routeResult.symbol = routeSymbol3;
+                routeLayer3.add(routeResult);
+                break
+            case 4:
+              //   console.log("entro a 4 en showrute")
+                routeResult.symbol = routeSymbol4;
+                routeLayer4.add(routeResult);
+                break
+            case 5:
+              //   console.log("entro a 5 en showrute")
+                routeResult.symbol = routeSymbol5;
+                routeLayer5.add(routeResult);
+                break
           }
       }
 
@@ -354,6 +496,18 @@ const crearStop  = (pLat,pLon,pId) => {
           //console.log("entro a 2 symbolo")
           symbolo = stopSymbol2
           break
+        case 3:
+          // console.log("entro a 3 symbolo")
+           symbolo = stopSymbol3
+           break
+        case 4:
+           //console.log("entro a 4 symbolo")
+           symbolo = stopSymbol4
+           break
+        case 5:
+          // console.log("entro a 5 symbolo")
+           symbolo = stopSymbol5
+           break
       }
 
       //console.log("el symbolo es ",symbolo)
@@ -384,12 +538,28 @@ const agregarStop  = (pId,pStop) => {
         //   console.log("entro a 1 en agregarStop")
             routeLayer.add(pStop);
             routeParams.stops.features.push(pStop);
-          break
+            break
         case 2:
         //   console.log("entro a 2 agregarStop")
-          routeLayer2.add(pStop);
-          routeParams2.stops.features.push(pStop);
-          break
+            routeLayer2.add(pStop);
+            routeParams2.stops.features.push(pStop);
+            break
+        case 3:
+        //   console.log("entro a 3 en agregarStop")
+            routeLayer3.add(pStop);
+            routeParams3.stops.features.push(pStop);
+            break
+        case 4:
+        //   console.log("entro a 4 agregarStop")
+            routeLayer4.add(pStop);
+            routeParams4.stops.features.push(pStop);
+            break
+        case 5:
+          //   console.log("entro a 5 en agregarStop")
+            routeLayer5.add(pStop);
+            routeParams5.stops.features.push(pStop);
+            break
+                  
       }
 }
 
@@ -408,6 +578,18 @@ const resolverRuta = (pId) => {
         //   console.log("entro a 2 resolverRuta")
           route.solve(routeUrl, routeParams2 ).then( (d) => showRoute(d,pId) );
           break
+        case 3:
+          //   console.log("entro a 3 en resolverRuta")
+            route.solve(routeUrl, routeParams3 ).then( (d) => showRoute(d,pId) );
+            break
+        case 4:
+          //   console.log("entro a 4 resolverRuta")
+            route.solve(routeUrl, routeParams4 ).then( (d) => showRoute(d,pId) );
+            break
+        case 5:
+          //   console.log("entro a 5 en resolverRuta")
+            route.solve(routeUrl, routeParams5 ).then( (d) => showRoute(d,pId) );
+            break
       }
 
 }
@@ -500,8 +682,10 @@ function createRenderer(year){
 
       // value afecta la velocidad del slider
       value += 0.01;
-      if (value > 23) {
-        value = 00;
+      
+      if (value > 24) {
+        value = 24;
+        stopAnimation()
       }
 
       setYear(value);
@@ -509,7 +693,8 @@ function createRenderer(year){
       // Update at 30fps - Velocidad del slider
       setTimeout(() => {
         requestAnimationFrame(frame);
-      }, 1000 / 60);
+      }, 1000 / 720);
+
     };
 
     frame();
